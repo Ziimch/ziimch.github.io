@@ -1,0 +1,58 @@
+/* ===== css/style.css ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 3px; }
+.light ::-webkit-scrollbar-thumb { background: #d4d4d8; }
+* { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 2px solid #0ea5e9; outline-offset: 2px; border-radius: 4px;
+}
+
+#scrollProgress { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: linear-gradient(90deg, #0ea5e9, #10b981); z-index: 60; transition: width 0.1s linear; }
+.nav-link.active { color: #0ea5e9 !important; }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+.filter-chip.active { background: #0ea5e9; color: white; border-color: #0ea5e9; }
+.honeypot-field { position: absolute; left: -9999px; top: -9999px; opacity: 0; height: 0; width: 0; pointer-events: none; }
+
+/* Hero: spotlight kursor + blob dekoratif */
+#hero { position: relative; isolation: isolate; }
+#heroSpotlight { position: absolute; inset: 0; pointer-events: none; border-radius: 1rem; opacity: 0; transition: opacity 0.3s ease;
+    background: radial-gradient(500px circle at var(--x, 50%) var(--y, 50%), rgba(14,165,233,0.08), transparent 60%); }
+#heroBgBlobs { position: absolute; inset: 0; overflow: hidden; z-index: -1; border-radius: 1.5rem; }
+#heroBgBlobs span { position: absolute; border-radius: 9999px; filter: blur(60px); opacity: 0.22; }
+#heroBgBlobs span:nth-child(1) { width: 280px; height: 280px; background: #0ea5e9; top: -90px; left: -60px; animation: floatBlob1 14s ease-in-out infinite; }
+#heroBgBlobs span:nth-child(2) { width: 220px; height: 220px; background: #10b981; bottom: -70px; right: -40px; animation: floatBlob2 16s ease-in-out infinite; }
+@keyframes floatBlob1 { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(30px, 24px); } }
+@keyframes floatBlob2 { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(-26px, -18px); } }
+@media (prefers-reduced-motion: reduce) { #heroBgBlobs span { animation: none; } }
+@media (pointer: fine) { #hero:hover #heroSpotlight { opacity: 1; } }
+
+/* Kursor berkedip efek ketik */
+#heroTypeCursor { display: inline-block; width: 2px; height: 1em; vertical-align: text-bottom; background: currentColor; margin-left: 2px; animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { #heroTypeCursor { animation: none; } }
+
+/* Command palette (Ctrl+K) */
+#cmdPaletteOverlay { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.6); backdrop-filter: blur(2px); display: none; align-items: flex-start; justify-content: center; padding: 12vh 1rem 1rem; }
+#cmdPaletteOverlay.open { display: flex; }
+.cmd-item.active { background: #0ea5e9; color: white; }
+.cmd-item.active .cmd-hint { color: rgba(255,255,255,0.7) !important; }
+
+/* Confetti easter egg */
+#confettiCanvas { position: fixed; inset: 0; z-index: 95; pointer-events: none; }
+
+/* Cetak / simpan PDF */
+@media print {
+    header, footer, #scrollProgress, #backToTop, .no-print, #adminLoginModal, #adminDashboard, #toast, #heroSpotlight, #heroTypeCursor { display: none !important; }
+    body { background: white !important; color: black !important; }
+    #mainHome { max-width: 100% !important; padding: 0 !important; }
+    #hero, section { break-inside: avoid; border-color: #ccc !important; }
+    a { color: black !important; text-decoration: none !important; }
+    .dark\:bg-zinc-950, .dark\:bg-zinc-900\/30, .dark\:bg-zinc-900 { background: white !important; }
+}
