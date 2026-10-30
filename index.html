@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title id="pageTitle">Azim | Siswa TKJ SMKN 1 Sidayu</title>
+    <meta name="description" content="Azim, siswa TKJ SMKN 1 Sidayu. Portofolio administrasi jaringan, server Linux, dan pengembangan web.">
+    <meta property="og:title" content="Azim | Siswa TKJ SMKN 1 Sidayu">
+    <meta property="og:description" content="Portofolio administrasi jaringan, server Linux, dan pengembangan web.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" id="metaTheme" content="#FDE2E4">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2228%22 fill=%22%23FAD2E1%22/><text x=%2250%22 y=%2268%22 font-size=%2252%22 font-weight=%22700%22 text-anchor=%22middle%22 fill=%22%23231B28%22 font-family=%22sans-serif%22>AZ</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: {
+            fontFamily: { sans: ['Figtree', 'system-ui', 'sans-serif'], mono: ['Figtree', 'system-ui', 'sans-serif'], display: ['Fraunces', 'Georgia', 'serif'] },
+            colors: {
+                /* Netral bernuansa plum, diturunkan dari palet: Sakura #FDE2E4, Mimi Pink #FAD2E1 */
+                zinc: { 50: '#FFFCF8', 100: '#FDE2E4', 200: '#F4D3DC', 300: '#E3BAC7', 400: '#8F7B8C', 500: '#6F5D6C', 600: '#54445A', 700: '#3F3345', 800: '#2A2031', 900: '#17111C', 950: '#0D0910' },
+                /* Aksen biru: Blizzard Blue #BEE1E6 */
+                sky: { 300: '#9FD0D8', 400: '#7DBBC6', 500: '#2F8394', 600: '#1F6572' },
+                cyan: { 500: '#5BB0BE' },
+                /* Aksen hijau: Honeydew Green #C1F4C5 */
+                emerald: { 400: '#7FD08A', 500: '#3FA55B', 600: '#2C7A43' },
+                /* Aksen kuning: Light Yellow #FFFFD1 */
+                amber: { 500: '#D9B93A' },
+                indigo: { 500: '#E58FB0' }
+            } } } }
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans antialiased min-h-screen selection:bg-zinc-200 dark:selection:bg-zinc-700">
+
+    <div id="scrollProgress"></div>
+
+    <!-- SIDEBAR (desktop) / kepala halaman (mobile) -->
+    <aside class="relative lg:fixed lg:inset-y-0 lg:left-0 lg:w-72 lg:overflow-y-auto bg-[#FDE2E4] dark:bg-zinc-900 border-b lg:border-b-0 lg:border-r border-zinc-300 dark:border-zinc-800 z-40">
+        <div class="px-5 py-5 lg:py-8 flex flex-col gap-5">
+            <div class="flex items-center gap-4 lg:flex-col lg:items-start">
+                <img id="heroAvatar" src="1000003180.jpg" alt="Foto profil Azim" class="w-16 h-16 lg:w-32 lg:h-32 rounded object-cover border border-zinc-900/20 dark:border-zinc-700" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop';">
+                <img id="navLogo" src="1000003180.jpg" alt="" class="hidden">
+                <span id="navName" class="hidden"></span>
+                <div class="flex-1 min-w-0 space-y-1">
+                    <h1 id="heroName" class="font-display text-2xl lg:text-3xl font-bold leading-tight">Azim</h1>
+                    <p id="heroRoleWrap" class="text-sm text-zinc-700 dark:text-zinc-400 leading-snug"><span id="heroRole"></span></p>
+                </div>
+                <button id="themeToggle" type="button" aria-label="Ganti tema terang atau gelap" class="theme-btn lg:absolute lg:top-4 lg:right-4 shrink-0"><svg class="theme-icon theme-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg><svg class="theme-icon theme-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></button>
+                <button id="mobileMenuBtn" aria-label="Buka menu" class="lg:hidden p-2 rounded border border-zinc-900/30 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+            </div>
+            <nav id="mobileMenu" class="hidden lg:block space-y-0.5" aria-label="Navigasi utama">
+                <a href="#hero" data-section="hero" class="nav-link mobile-link block px-3 py-2 rounded text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800">Ringkasan</a>
+                <a href="#tentang" data-section="tentang" class="nav-link mobile-link block px-3 py-2 rounded text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800">Tentang</a>
+                <a href="#keahlian" data-section="keahlian" class="nav-link mobile-link block px-3 py-2 rounded text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800">Keahlian</a>
+                <a href="#pengalaman" data-section="pengalaman" class="nav-link mobile-link block px-3 py-2 rounded text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800">Pengalaman</a>
+                <a href="#/proyek" data-section="proyek" class="nav-link mobile-link block px-3 py-2 rounded text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800">Proyek</a>
+                <a href="#/github" data-section="github" class="nav-link mobile-link block px-3 py-2 rounded text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800">GitHub</a>
+                <a href="#artikel" data-section="artikel" class="nav-link mobile-link block px-3 py-2 rounded text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800">Catatan</a>
+                <a href="#testimoni" data-section="testimoni" class="nav-link mobile-link block px-3 py-2 rounded text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800">Testimoni</a>
+                <a href="#kontak" data-section="kontak" class="nav-link mobile-link block px-3 py-2 rounded text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800">Kontak</a>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="lg:pl-72">
+    <!-- ===== BERANDA ===== -->
+    <main id="mainHome" class="max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16 lg:pt-16 space-y-20">
+        <section id="hero" class="space-y-8 scroll-mt-6">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#C1F4C5] text-[#1F5A2E] text-sm font-semibold"><span class="w-2 h-2 rounded bg-[#2C7A43]"></span><span id="heroBadgeText"></span></span>
+            <p id="heroBio" class="font-display text-2xl sm:text-3xl leading-snug text-zinc-900 dark:text-zinc-100"></p>
+            <div class="flex flex-wrap items-center gap-3 text-sm">
+                <a href="#kontak" class="px-5 py-2.5 rounded bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold hover:bg-[#1F6572] dark:hover:bg-[#BEE1E6]">Hubungi saya</a>
+                <a href="#/proyek" class="px-5 py-2.5 rounded border border-zinc-900 dark:border-zinc-300 font-semibold hover:bg-[#FFFFD1] dark:hover:bg-zinc-800">Lihat proyek</a>
+                <button onclick="salinEmailAzim()" class="px-2 py-2.5 text-zinc-700 dark:text-zinc-400 hover:underline"><span id="heroEmailLabel"></span> <span class="text-xs text-zinc-500">(salin)</span></button>
+            </div>
+            <div id="statsContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-4"></div>
+        </section>
+
+        <section id="tentang" class="reveal sec scroll-mt-6">
+            <h2 class="sec-title">Tentang saya</h2>
+            <div class="space-y-6">
+                <p id="aboutDetail" class="text-base sm:text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed max-w-2xl"></p>
+                <div id="principlesContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm"></div>
+            </div>
+        </section>
+
+        <section id="keahlian" class="reveal sec scroll-mt-6">
+            <h2 class="sec-title">Keahlian</h2>
+            <div id="skillsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm"></div>
+        </section>
+
+        <section id="pengalaman" class="reveal sec scroll-mt-6">
+            <h2 class="sec-title">Pendidikan dan pengalaman</h2>
+            <div id="experienceContainer" class="space-y-8"></div>
+        </section>
+
+        <section id="proyek" class="reveal sec scroll-mt-6">
+            <h2 class="sec-title">Proyek</h2>
+            <div class="space-y-4">
+                <div id="firebaseStatusProj" class="text-xs text-zinc-500">Memuat data proyek...</div>
+                <div id="teaserProjectsContainer" class="space-y-3"></div>
+                <a href="#/proyek" class="inline-block text-sm font-semibold text-sky-600 dark:text-sky-400 hover:underline">Lihat semua proyek</a>
+            </div>
+        </section>
+
+        <section id="artikel" class="reveal sec scroll-mt-6">
+            <h2 class="sec-title">Catatan belajar</h2>
+            <div id="publicArticlesContainer" class="space-y-2"></div>
+        </section>
+
+        <section id="testimoni" class="reveal sec scroll-mt-6">
+            <h2 class="sec-title">Testimoni</h2>
+            <div id="testimonialsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+        </section>
+
+        <section id="kontak" class="reveal sec scroll-mt-6">
+            <h2 class="sec-title">Kontak</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-4">
+                <p class="text-base text-zinc-700 dark:text-zinc-300 leading-relaxed">Silakan hubungi saya untuk peluang kerja, magang, atau diskusi proyek. Saya akan membalas secepatnya.</p>
+                <div class="space-y-2 text-sm font-mono">
+                    <div class="p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex items-center justify-between">
+                        <span class="text-zinc-700 dark:text-zinc-300" id="mainEmailVal"></span>
+                        <button onclick="salinEmailAzim()" class="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 underline text-xs">Salin</button>
+                    </div>
+                </div>
+                <div id="socialLinksContainer" class="flex flex-wrap items-center gap-4 text-sm font-mono text-zinc-500 pt-2"></div>
+                <div class="flex flex-wrap gap-2 pt-2 no-print">
+                    <button onclick="downloadVCard()" class="px-4 py-2.5 rounded border border-zinc-200 dark:border-zinc-800 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-900">Simpan kontak</button>
+                    <button onclick="window.print()" class="px-4 py-2.5 rounded border border-zinc-200 dark:border-zinc-800 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-900">Cetak / simpan PDF</button>
+                    <button onclick="sharePortfolio()" class="px-4 py-2.5 rounded border border-zinc-200 dark:border-zinc-800 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-900">Bagikan</button>
+                </div>
+            </div>
+            <div class="p-5 rounded-md border border-zinc-200 dark:border-zinc-800 bg-[#FFFFD1] dark:bg-zinc-900/60 relative">
+                <form onsubmit="handleFormSubmit(event)" class="space-y-3 text-sm" novalidate>
+                    <input type="text" name="_honey" class="honeypot-field" tabindex="-1" autocomplete="off">
+                    <div>
+                        <input type="text" name="name" id="fName" required minlength="2" placeholder="Nama lengkap *" class="w-full px-4 py-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950 focus:outline-none">
+                        <p class="field-error hidden text-rose-500 text-xs mt-1 font-mono"></p>
+                    </div>
+                    <div>
+                        <input type="email" name="email" id="fEmail" required placeholder="Alamat email *" class="w-full px-4 py-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950 focus:outline-none">
+                        <p class="field-error hidden text-rose-500 text-xs mt-1 font-mono"></p>
+                    </div>
+                    <div>
+                        <textarea name="message" id="fMessage" rows="3" required minlength="10" placeholder="Isi pesan *" class="w-full px-4 py-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950 focus:outline-none"></textarea>
+                        <p class="field-error hidden text-rose-500 text-xs mt-1 font-mono"></p>
+                    </div>
+                    <button type="submit" id="submitBtn" class="w-full py-2.5 rounded bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold">Kirim pesan</button>
+                </form>
+                <div id="formSuccess" class="hidden absolute inset-0 bg-white dark:bg-zinc-900 rounded-md p-6 flex flex-col items-center justify-center text-center space-y-2">
+                    <div class="text-emerald-500 font-bold text-sm">Pesan Anda telah terkirim. Terima kasih.</div>
+                    <button onclick="document.getElementById('formSuccess').classList.add('hidden')" class="mt-2 text-xs font-mono text-zinc-400 hover:underline">Tutup</button>
+                </div>
+            </div>
+        </div>
+        </section>
+    </main>
+
+    <footer id="mainFooter" class="py-8 border-t border-zinc-300 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+            <div class="flex items-center gap-3">
+                <span id="footerCopyright"></span>
+                <span id="visitorCounter" class="hidden">Pengunjung: <span id="visitorCountVal">0</span></span>
+            </div>
+            <a href="#hero" class="font-medium hover:underline">Kembali ke atas</a>
+        </div>
+    </footer>
+
+    <!-- ===== SUB-HALAMAN: DAFTAR PROYEK ===== -->
+    <div id="pageProyekList" class="hidden max-w-4xl mx-auto px-6 py-12 sm:py-16 space-y-6">
+        <div class="text-xs font-mono text-zinc-400"><a href="#hero" class="hover:underline">Beranda</a> / <span class="text-zinc-600 dark:text-zinc-300">Proyek</span></div>
+        <div class="space-y-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Semua proyek</h1>
+            <p class="text-sm text-zinc-500 dark:text-zinc-400">Kumpulan proyek yang pernah saya kerjakan, lengkap dengan detail dan tautannya.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <input id="projectSearch" type="text" placeholder="Cari proyek atau teknologi..." class="w-full sm:w-64 px-4 py-2.5 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm focus:outline-none">
+            <div id="projectFilters" class="flex flex-wrap gap-2 text-[11px] font-mono"></div>
+        </div>
+        <div id="fullProjectsContainer" class="space-y-4"></div>
+        <p id="projectsEmptyState" class="hidden text-xs font-mono text-zinc-400 py-4">Tidak ada proyek yang sesuai dengan pencarian Anda.</p>
+    </div>
+
+    <!-- ===== SUB-HALAMAN: DETAIL PROYEK ===== -->
+    <div id="pageProyekDetail" class="hidden max-w-3xl mx-auto px-6 py-12 sm:py-16 space-y-6">
+        <div class="text-xs font-mono text-zinc-400">
+            <a href="#hero" class="hover:underline">Beranda</a> / <a href="#/proyek" class="hover:underline">Proyek</a> / <span class="text-zinc-600 dark:text-zinc-300" id="detailBreadcrumbTitle">...</span>
+        </div>
+        <div id="detailContent"></div>
+    </div>
+
+    <!-- ===== SUB-HALAMAN: GITHUB ===== -->
+    <div id="pageGithub" class="hidden max-w-4xl mx-auto px-6 py-12 sm:py-16 space-y-6">
+        <div class="text-xs font-mono text-zinc-400"><a href="#hero" class="hover:underline">Beranda</a> / <span class="text-zinc-600 dark:text-zinc-300">GitHub</span></div>
+        <div class="flex items-start justify-between gap-4 flex-wrap">
+            <div class="space-y-2">
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Repositori GitHub</h1>
+                <p class="text-sm text-zinc-500 dark:text-zinc-400">Data diambil langsung dari akun <span id="ghUsernameLabel" class="font-semibold">GitHub</span>.</p>
+            </div>
+            <a id="ghProfileLink" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 text-sm font-semibold hover:opacity-90 whitespace-nowrap">Lihat profil GitHub</a>
+        </div>
+        <div id="ghStatsBar" class="grid grid-cols-3 gap-4 pt-2"></div>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <input id="ghSearch" type="text" placeholder="Cari repositori..." class="w-full sm:w-64 px-4 py-2.5 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm focus:outline-none">
+            <select id="ghSortSelect" class="px-4 py-2.5 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm font-mono focus:outline-none">
+                <option value="updated">Terakhir diperbarui</option>
+                <option value="stars">Bintang terbanyak</option>
+                <option value="name">Nama (A–Z)</option>
+            </select>
+        </div>
+        <div id="ghLangFilters" class="flex flex-wrap gap-2 text-[11px] font-mono"></div>
+        <div id="ghLoadingState" class="space-y-3">
+            <div class="animate-pulse h-24 rounded-md bg-zinc-100 dark:bg-zinc-900"></div>
+            <div class="animate-pulse h-24 rounded-md bg-zinc-100 dark:bg-zinc-900"></div>
+        </div>
+        <div id="ghErrorState" class="hidden text-xs font-mono text-rose-500 p-4 rounded-md border border-rose-500/30 bg-rose-500/10"></div>
+        <div id="ghReposContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+        <p id="ghEmptyState" class="hidden text-xs font-mono text-zinc-400 py-4">Tidak ada repositori yang sesuai.</p>
+    </div>
+
+    </div>
+
+    <button id="backToTop" aria-label="Kembali ke atas" class="hidden fixed bottom-6 left-6 w-11 h-11 rounded bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 shadow-lg items-center justify-center z-[55] hover:opacity-90">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+    </button>
+
+    <!-- MODAL LOGIN ADMIN -->
+    <div id="adminLoginModal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 max-w-sm w-full rounded-2xl p-6 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3 mb-4">
+                <h3 id="loginModalTitle" class="font-bold text-sm">🔐 Otorisasi Sistem</h3>
+                <button onclick="closeLoginModal()" aria-label="Tutup" class="text-zinc-400 hover:text-zinc-900 dark:hover:text-white">✕</button>
+            </div>
+            <form id="adminFormLogin" class="space-y-3 text-xs">
+                <input type="email" id="adminUser" required placeholder="Email Admin" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" class="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 focus:outline-none">
+                <input type="password" id="adminPass" required placeholder="Password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" class="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 focus:outline-none">
+                <p id="loginError" class="text-rose-500 hidden font-mono text-[11px]">Kredensial ditolak!</p>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeLoginModal()" class="px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800">Batal</button>
+                    <button type="submit" id="loginSubmitBtn" class="px-4 py-2 rounded-lg bg-zinc-900 dark:bg-white text-zinc-100 dark:text-zinc-900 font-semibold font-mono">Verifikasi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- PANEL ADMIN: markup-nya dibuat oleh js/admin-ui.js -->
+    <div id="adminRoot"></div>
+
+    <!-- Command Palette (Ctrl+K) -->
+    <div id="cmdPaletteOverlay" onclick="if(event.target===this) closeCmdPalette()">
+        <div class="w-full max-w-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl overflow-hidden">
+            <input id="cmdPaletteInput" type="text" placeholder="Cari halaman atau tindakan..." class="w-full px-4 py-3.5 text-sm bg-transparent border-b border-zinc-200 dark:border-zinc-800 focus:outline-none" autocomplete="off">
+            <div id="cmdPaletteResults" class="max-h-80 overflow-y-auto text-sm"></div>
+            <div class="px-4 py-2 text-[10px] font-mono text-zinc-400 border-t border-zinc-200 dark:border-zinc-800 flex items-center gap-3">
+                <span>Panah: pilih</span><span>Enter: buka</span><span>Esc: tutup</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast" class="fixed bottom-6 right-6 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none z-[80]">
+        <div id="toastText" class="bg-zinc-900 dark:bg-white text-zinc-100 dark:text-zinc-900 px-4 py-2.5 rounded-md text-xs font-mono font-semibold shadow-xl border border-zinc-800 dark:border-zinc-200">Notifikasi</div>
+    </div>
+
+    <!-- URUTAN SCRIPT PENTING: jangan ditukar -->
+    <script src="js/config.js"></script>
+    <script src="js/admin-ui.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/features.js"></script>
+</body>
+</html>
