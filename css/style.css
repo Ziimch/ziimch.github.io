@@ -1,0 +1,105 @@
+/* ===== css/style.css ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #E3BAC7; border-radius: 3px; }
+.light ::-webkit-scrollbar-thumb { background: #E3BAC7; }
+* { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 2px solid #2A7686; outline-offset: 2px; border-radius: 4px;
+}
+
+#scrollProgress { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: linear-gradient(90deg, #FAD2E1, #BEE1E6, #C1F4C5); z-index: 60; transition: width 0.1s linear; }
+.nav-link.active { background: #FFFFD1; color: #231B28 !important; box-shadow: inset 4px 0 0 #D9759A; }
+.dark .nav-link.active { background: rgba(255,255,209,0.12); color: #FFFFD1 !important; }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+.filter-chip.active { background: #BEE1E6; color: #1A141F; border-color: #BEE1E6; }
+.honeypot-field { position: absolute; left: -9999px; top: -9999px; opacity: 0; height: 0; width: 0; pointer-events: none; }
+
+/* Command palette (Ctrl+K) */
+#cmdPaletteOverlay { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.6); backdrop-filter: blur(2px); display: none; align-items: flex-start; justify-content: center; padding: 12vh 1rem 1rem; }
+#cmdPaletteOverlay.open { display: flex; }
+.cmd-item.active { background: #FAD2E1; color: #231B28; }
+.cmd-item.active .cmd-hint { color: #54445A !important; }
+
+/* Cetak / simpan PDF */
+@media print {
+    header, footer, #scrollProgress, #backToTop, .no-print, #adminLoginModal, #adminDashboard, #toast, #heroSpotlight, #heroTypeCursor { display: none !important; }
+    body { background: white !important; color: black !important; background-image: none !important; }
+    .card-tone { background: white !important; border: 1px solid #ccc !important; }
+    footer { display: none !important; }
+    #mainHome { max-width: 100% !important; padding: 0 !important; }
+    #hero, section { break-inside: avoid; border-color: #ccc !important; }
+    a { color: black !important; text-decoration: none !important; }
+    .dark\:bg-zinc-950, .dark\:bg-zinc-900\/30, .dark\:bg-zinc-900 { background: white !important; }
+}
+
+/* ===== Tema pastel: palet dipakai sebagai aksen ===== */
+:root { --sakura: #FDE2E4; --mimi: #FAD2E1; --blizzard: #BEE1E6; --honeydew: #C1F4C5; --lemon: #FFFFD1; --ink: #231B28; --line: #E3BAC7; }
+h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; }
+body { background-image: none; }
+
+/* Judul bagian: tulisan dengan stabilo warna, bukan kotak */
+.sec { display: block; }
+.sec > * + * { margin-top: 1.5rem; }
+.sec-title { display: inline-block; font-size: 1.9rem; line-height: 1.2; font-weight: 700; padding: 0 .15em; margin-left: -.15em;
+    background: linear-gradient(transparent 58%, var(--accent, var(--mimi)) 58%); }
+#tentang { --accent: #F7B6CC; } #keahlian { --accent: #9FD0D8; } #pengalaman { --accent: #9BE3A2; }
+#proyek { --accent: #FBF08A; } #artikel { --accent: #F7B6CC; } #testimoni { --accent: #9FD0D8; } #kontak { --accent: #9BE3A2; }
+.dark .sec-title { background: linear-gradient(transparent 58%, rgba(250,210,225,.28) 58%); }
+
+/* Blok konten: latar putih, garis tipis, tepi kiri berwarna */
+.card-tone { background: #fff; border: 1px solid var(--line) !important; border-left: 5px solid var(--blizzard) !important; border-radius: 6px !important; color: var(--ink); }
+.card-tone:nth-child(5n+1) { border-left-color: #E48AAE !important; }
+.card-tone:nth-child(5n+2) { border-left-color: #6FB2C0 !important; }
+.card-tone:nth-child(5n+3) { border-left-color: #5FBF6B !important; }
+.card-tone:nth-child(5n+4) { border-left-color: #E0CF4A !important; }
+.card-tone:nth-child(5n+5) { border-left-color: #C9A0D0 !important; }
+.card-tone .muted { opacity: .72; }
+a.card-tone:hover { background: #FFFBB8; }
+.chip { background: #FDE2E4; border: 1px solid #F4C2CE; color: var(--ink); border-radius: 4px !important; }
+.dark .card-tone { background: #2E2433; color: #FDE2E4; border-color: #3F3345 !important; }
+.dark a.card-tone:hover { background: #38362A; }
+.dark .chip { background: rgba(255,255,255,.1); color: #FDE2E4; }
+
+/* Statistik: deretan angka dengan garis warna di atas */
+#statsContainer .card-tone { background: transparent !important; border: 0 !important; border-top: 3px solid var(--ink) !important; border-radius: 0 !important; padding: .6rem 0 0 !important; text-align: left; }
+#statsContainer .card-tone:nth-child(1) { border-top-color: #E48AAE !important; } #statsContainer .card-tone:nth-child(2) { border-top-color: #6FB2C0 !important; }
+#statsContainer .card-tone:nth-child(3) { border-top-color: #5FBF6B !important; } #statsContainer .card-tone:nth-child(4) { border-top-color: #E0CF4A !important; }
+.dark #statsContainer .card-tone { color: #FDE2E4; }
+
+@media print { aside { display: none !important; } .lg\:pl-72 { padding-left: 0 !important; } .card-tone { background: white !important; } }
+
+/* Teks pendukung di mode terang dibuat lebih gelap agar mudah dibaca */
+html:not(.dark) .text-zinc-400 { color: #7D6A7A; }
+
+/* ===== Tombol tema ===== */
+.theme-btn { position: relative; width: 2.5rem; height: 2.5rem; border-radius: 6px; border: 1px solid rgba(35,27,40,.3); color: #231B28; overflow: hidden; cursor: pointer; }
+.theme-btn:hover { background: #FFFFD1; }
+.dark .theme-btn { border-color: #3F3345; color: #FFFFD1; }
+.dark .theme-btn:hover { background: rgba(255,255,209,.1); }
+.theme-icon { position: absolute; inset: 0; margin: auto; width: 1.25rem; height: 1.25rem; transition: transform .6s cubic-bezier(.34,1.56,.64,1), opacity .35s ease; }
+.theme-sun { opacity: 0; transform: rotate(-120deg) scale(.3); }
+.theme-moon { opacity: 1; transform: none; }
+.dark .theme-sun { opacity: 1; transform: none; }
+.dark .theme-moon { opacity: 0; transform: rotate(120deg) scale(.3); }
+
+/* ===== Mode gelap lebih dalam ===== */
+.dark body { background-image: radial-gradient(48rem 28rem at 95% -8%, rgba(190,225,230,.08), transparent 60%), radial-gradient(40rem 26rem at 5% 105%, rgba(250,210,225,.08), transparent 60%); background-attachment: fixed; }
+.dark .card-tone { background: #1B1422; border-color: #2E2438 !important; }
+.dark a.card-tone:hover { background: #262111; }
+.dark .sec-title { background: linear-gradient(transparent 58%, rgba(250,210,225,.30) 58%); text-shadow: 0 0 24px rgba(250,210,225,.25); }
+.dark .nav-link.active { box-shadow: inset 4px 0 0 #FAD2E1, 0 0 18px rgba(255,255,209,.08); }
+.dark .chip { background: rgba(190,225,230,.12); color: #BEE1E6; border: 1px solid rgba(190,225,230,.2); }
+.dark #heroBio { text-shadow: 0 0 40px rgba(250,210,225,.12); }
+
+/* ===== Gelombang peralihan tema ===== */
+#themeWave { position: fixed; inset: 0; z-index: 200; pointer-events: none; overflow: hidden; }
+#themeWave .ring { position: absolute; border-radius: 50%; will-change: transform; transform: scale(0); }
+html.theme-switching * { transition: none !important; }
+@media (prefers-reduced-motion: reduce) { #themeWave { display: none; } }
